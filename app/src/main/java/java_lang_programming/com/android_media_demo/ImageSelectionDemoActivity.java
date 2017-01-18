@@ -168,6 +168,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
                 }
                 Uri result = data.getData();
                 selectedImage.setImageURI(result);
+                break;
             default:
                 break;
         }
