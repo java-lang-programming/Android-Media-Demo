@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Main
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,6 +53,15 @@ public class MainActivity extends AppCompatActivity
                 moveImageSelectionDemoActivity();
             }
         });
+
+        Button btnImageSelectionCropDemo = (Button) findViewById(R.id.btn_image_selection_crop_demo);
+        btnImageSelectionCropDemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveImageSelectionCropDemo();
+            }
+        });
+
     }
 
     @Override
@@ -111,6 +123,11 @@ public class MainActivity extends AppCompatActivity
 
     private void moveImageSelectionDemoActivity() {
         Intent intent = new Intent(this, ImageSelectionDemoActivity.class);
+        startActivity(intent);
+    }
+
+    private void moveImageSelectionCropDemo() {
+        Intent intent = new Intent(this, ImageSelectionCropDemo.class);
         startActivity(intent);
     }
 }
