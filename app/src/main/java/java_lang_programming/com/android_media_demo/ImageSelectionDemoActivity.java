@@ -29,7 +29,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
     public final static int REQUEST_CODE_CHOOSER = 101;
 
     /**
-     * Id to identify a camera permission request.
+     * Id to identify a READ_EXTERNAL_STORAGE permission request.
      */
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 0;
 
@@ -43,7 +43,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
             });
 
     /**
-     * Permissions required to read and write external storage.
+     * Permissions required to read external storage.
      */
     private static String[] PERMISSION_READ_EXTERNAL_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -70,7 +70,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
         btnSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermision();
+                checkPermission();
             }
         });
 
@@ -79,7 +79,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
     /**
      * Called when the '画像を選択する' button is clicked.
      */
-    private void checkPermision() {
+    private void checkPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // READ_EXTERNAL_STORAGE permission has not been granted.
@@ -142,7 +142,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
     }
 
     /**
-     * start ExternalApp if the required READ_EXTERNAL_STORAGE permission has been granted.
+     * start ExternalApps if the required READ_EXTERNAL_STORAGE permission has been granted.
      */
     private void startExternalAppSelectableImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -159,6 +159,7 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case (ImageSelectionDemoActivity.REQUEST_CODE_CHOOSER):
                 if (resultCode != RESULT_OK) {
@@ -167,7 +168,6 @@ public class ImageSelectionDemoActivity extends AppCompatActivity {
                 }
                 Uri result = data.getData();
                 selectedImage.setImageURI(result);
-                break;
             default:
                 break;
         }
