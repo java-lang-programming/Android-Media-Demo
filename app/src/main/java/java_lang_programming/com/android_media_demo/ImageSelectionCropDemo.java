@@ -1,3 +1,22 @@
+/**
+ * Copyright (C) 2016 Programming Java Android Development Project
+ * Programming Java is
+ * <p>
+ * http://java-lang-programming.com/ja/articles/74
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package java_lang_programming.com.android_media_demo;
 
 import android.Manifest;
@@ -15,7 +34,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -34,11 +56,6 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
 
     public final static int REQUEST_CODE_CROP = 102;
 
-    /**
-     * Id to identify a EXTERNAL_STORAGE permission request.
-     */
-    private static final int REQUEST_EXTERNAL_STORAGE = 0;
-
     public static final List<String> types = Collections
             .unmodifiableList(new LinkedList<String>() {
                 {
@@ -53,6 +70,8 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
      */
     private static String[] PERMISSION_EXTERNAL_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+    private ImageView selectedImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +85,15 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        selectedImage = (ImageView) findViewById(R.id.selected_image);
+        Button btnSelectImage = (Button) findViewById(R.id.btn_select_image);
+        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermission();
             }
         });
     }
@@ -86,7 +114,7 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
     }
 
     /**
-     * Requests the READ_EXTERNAL_STORAGE permission.
+     * Requests the READ_EXTERNAL_STORAGE permission and WRITE_EXTERNAL_STORAGE.
      * the permission is requested directly.
      */
     private void requestExternalStoragePermission() {
@@ -163,12 +191,13 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
                     return;
                 }
                 startCrop(data.getData());
+                break;
             case (REQUEST_CODE_CROP):
                 if (resultCode != RESULT_OK) {
                     Toast.makeText(this, getString(R.string.crop_image_failure_message), Toast.LENGTH_LONG).show();
                     return;
                 }
-                // selectedImage.setImageURI(data.getData());
+                selectedImage.setImageURI(data.getData());
                 deleteExternalStoragePublicPicture();
                 break;
             default:
@@ -176,43 +205,23 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
         }
     }
 
-//    /**
-//     * Called when the '画像を選択する' button is clicked.
-//     */
-//    private void checkWriteExternalStoragePermission(Uri uri) {
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // WRITE_EXTERNAL_STORAGE permission has not been granted.
-//            requestWriteExternalStoragePermission();
-//        } else {
-//            startCrop(uri);
-//        }
-//    }
-
-//    /**
-//     * Requests the Write_EXTERNAL_STORAGE permission.
-//     * the permission is requested directly.
-//     */
-//    private void requestWriteExternalStoragePermission() {
-//        // Contact permissions have not been granted yet. Request them directly.
-//        ActivityCompat.requestPermissions(this, PERMISSION_WRITE_EXTERNAL_STORAGE, ImageSelectionDemoActivity.REQUEST_WRITE_EXTERNAL_STORAGE);
-//    }
-
     /**
      * start Crop
+     *
+     * @param uri image uri
      */
     private void startCrop(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
-//        intent.putExtra("aspectX", aspectX);
-//        intent.putExtra("aspectY", aspectY);
+        intent.putExtra("aspectX", 16);
+        intent.putExtra("aspectY", 9);
         intent.putExtra("scaleUpIfNeeded", true);
         intent.putExtra("scale", "true");
         intent.putExtra("return-data", false);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.name());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getExternalStorageTempStoreFilePath()));
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        startActivityForResult(intent, REQUEST_CODE_CROP);
+        startActivityForResult(intent, ImageSelectionCropDemo.REQUEST_CODE_CROP);
     }
 
     /**
@@ -228,7 +237,7 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
     }
 
     /**
-     * 一時保存ファイルを削除する
+     * Delete temporary stored file.
      */
     private void deleteExternalStoragePublicPicture() {
         // Create a path where we will place our picture in the user's
@@ -236,12 +245,10 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
         // storage is not currently mounted this will fail.
         File file = getExternalStorageTempStoreFilePath();
         if (file != null) {
-            file.delete();
+            // Log.d("ImageSelectionCropDemo", file.getAbsolutePath() + " is " + file.exists());
+            if (!file.delete()) {
+                Log.e("ImageSelectionCropDemo", "File deletion failed.");
+            }
         }
-//        Log.d("ImageSelection : ", file.getAbsolutePath());
-//        if (!file.delete()) {
-//            Log.d("ImageSelection ", "file delete is failure ");
-//        }
     }
-// https://android.googlesource.com/platform/development/+/master/samples/ApiDemos/src/com/example/android/apis/content/ExternalStorage.java
 }

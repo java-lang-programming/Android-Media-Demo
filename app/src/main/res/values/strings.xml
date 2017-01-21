@@ -11,5 +11,5 @@
     <string name="image_unselected_message">画像が選択されませんでした</string>
     <string name="permissions_not_granted">権限は許可されていません</string>
     <string name="crop_image_failure_message">画像がcropされませんでした</string>
-    <string name="title_activity_image_selection_crop_demo">ImageSelectionCropDemo</string>
+    <string name="title_activity_image_selection_crop_demo">画像cropデモ</string>
 </resources>
