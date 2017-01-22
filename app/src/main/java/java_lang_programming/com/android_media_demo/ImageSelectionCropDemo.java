@@ -52,9 +52,9 @@ public class ImageSelectionCropDemo extends AppCompatActivity {
 
     public final static int REQUEST_CODE_CHOOSER = 101;
 
-    public final static int REQUEST_CODE_EXTERNAL_STORAGE = 101;
+    public final static int REQUEST_CODE_EXTERNAL_STORAGE = 102;
 
-    public final static int REQUEST_CODE_CROP = 102;
+    public final static int REQUEST_CODE_CROP = 103;
 
     public static final List<String> types = Collections
             .unmodifiableList(new LinkedList<String>() {
