@@ -10,6 +10,10 @@ The explanation of this code is publishing on website.
 
 http://java-lang-programming.com/
 
+Youtube
+
+https://www.youtube.com/channel/UCMp2j7fyvrOu1kMRrSjwLKQ
+
 English
 
 [Android Application Development. Edit Picture. Apply Grayscale to ImageView's Image.](http://java-lang-programming.com/en/articles/80)
