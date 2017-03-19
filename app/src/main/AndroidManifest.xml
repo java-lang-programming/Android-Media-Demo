@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="java_lang_programming.com.android_media_demo">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup,android:supportsRtl">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -28,6 +30,10 @@
         <activity
             android:name=".ImageSelectionCropDemo"
             android:label="@string/title_activity_image_selection_crop_demo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".article80.GrayScaleActivity"
+            android:label="@string/title_activity_gray_scale"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

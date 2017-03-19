@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java_lang_programming.com.android_media_demo.article80.GrayScaleActivity;
+
 /**
  * Main
  */
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        Button btnGrayScaleDemo = (Button) findViewById(R.id.btn_gray_scale_demo);
+        btnGrayScaleDemo.setOnClickListener(v -> moveGrayScaleActivity());
     }
 
     @Override
@@ -128,6 +132,11 @@ public class MainActivity extends AppCompatActivity
 
     private void moveImageSelectionCropDemo() {
         Intent intent = new Intent(this, ImageSelectionCropDemo.class);
+        startActivity(intent);
+    }
+
+    private void moveGrayScaleActivity() {
+        Intent intent = new Intent(this, GrayScaleActivity.class);
         startActivity(intent);
     }
 }
