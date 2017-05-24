@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java_lang_programming.com.android_media_demo.article80.GrayScaleActivity;
+import java_lang_programming.com.android_media_demo.article85.ExifActivity;
 
 /**
  * Main
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity
 
         Button btnGrayScaleDemo = (Button) findViewById(R.id.btn_gray_scale_demo);
         btnGrayScaleDemo.setOnClickListener(v -> moveGrayScaleActivity());
+
+        Button btnExifDemo = (Button) findViewById(R.id.btn_exif_demo);
+        btnExifDemo.setOnClickListener(v -> moveExifActivity());
     }
 
     @Override
@@ -137,6 +141,11 @@ public class MainActivity extends AppCompatActivity
 
     private void moveGrayScaleActivity() {
         Intent intent = new Intent(this, GrayScaleActivity.class);
+        startActivity(intent);
+    }
+
+    private void moveExifActivity() {
+        Intent intent = new Intent(this, ExifActivity.class);
         startActivity(intent);
     }
 }

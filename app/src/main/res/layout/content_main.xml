@@ -32,4 +32,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_image_selection_crop_demo"
         android:text="@string/title_activity_gray_scale_demo" />
+
+    <Button
+        android:id="@+id/btn_exif_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_gray_scale_demo"
+        android:text="@string/title_activity_exif_demo" />
 </RelativeLayout>

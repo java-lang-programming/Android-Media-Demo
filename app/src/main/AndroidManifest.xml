@@ -34,6 +34,10 @@
         <activity
             android:name=".article80.GrayScaleActivity"
             android:label="@string/title_activity_gray_scale"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".article85.ExifActivity"
+            android:label="@string/title_activity_exif"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

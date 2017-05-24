@@ -19,4 +19,5 @@
     <string name="image_filter_selected_msg">%1$sが選択されました</string>
 
     <string name="title_activity_gray_scale_demo">画像グレースケールデモ</string>
+    <string name="title_activity_exif_demo">Exifデモ</string>
 </resources>

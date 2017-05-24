@@ -20,4 +20,7 @@
     <string name="image_filter_selected_msg">%1$s was selected.</string>
 
     <string name="title_activity_gray_scale_demo">Image GrayScale Demo</string>
+    <string name="title_activity_exif_demo">Exif Demo</string>
+    <string name="title_activity_exif">ExifActivity</string>
+
 </resources>
