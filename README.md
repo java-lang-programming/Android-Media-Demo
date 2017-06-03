@@ -18,10 +18,14 @@ English
 
 [Android Application Development. Edit Picture. Apply Grayscale to ImageView's Image.](http://java-lang-programming.com/en/articles/80)
 
+[Android Application Development. Exif. Acquire image Exif information.](http://java-lang-programming.com/en/articles/84)
+
 
 日本語
 
 [Androidアプリ開発 画像編集 ImageViewの画像にグレースケールをかける](http://java-lang-programming.com/ja/articles/80)
+
+[Androidアプリ開発 Exif 画像のExif情報を取得する](http://java-lang-programming.com/en/articles/84)
 
 
 Credits

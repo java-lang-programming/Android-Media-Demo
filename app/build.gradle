@@ -28,6 +28,10 @@ android {
         disable 'GoogleAppIndexingWarning'
         baseline file("lint-baseline.xml") // your choice of filename/path here
     }
+//    aaptOptions {
+//        // PNGのcrunching無効
+//        cruncherEnables false
+//    }
 }
 
 dependencies {

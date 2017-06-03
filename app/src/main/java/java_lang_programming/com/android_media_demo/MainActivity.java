@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java_lang_programming.com.android_media_demo.article80.GrayScaleActivity;
-import java_lang_programming.com.android_media_demo.article85.ExifActivity;
+import java_lang_programming.com.android_media_demo.article84.ExifActivity;
 
 /**
  * Main

@@ -1,4 +1,4 @@
-package java_lang_programming.com.android_media_demo.article85;
+package java_lang_programming.com.android_media_demo.article84;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -72,9 +73,9 @@ public class ExifActivity extends AppCompatActivity {
 
         selectedImage = (ImageView) findViewById(R.id.selected_image);
         Button btnSelectImage = (Button) findViewById(R.id.btn_select_image);
-        btnSelectImage.setOnClickListener(v -> {
-            checkPermission();
-        });
+        btnSelectImage.setOnClickListener(v ->
+                checkPermission()
+        );
 
     }
 
@@ -116,16 +117,10 @@ public class ExifActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, null), ImageSelectionDemoActivity.REQUEST_CODE_CHOOSER);
     }
 
-    /**
-     * Callback received when a permissions request has been completed.
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case (REQUEST_READ_EXTERNAL_STORAGE):
                 if (verifyPermissions(grantResults)) {
@@ -176,28 +171,29 @@ public class ExifActivity extends AppCompatActivity {
                 if (bitmap != null) {
                     selectedImage.setImageBitmap(bitmap);
                 }
-                //getOrientation(result);
-                //startCrop(data.getData());
-                // selectedImage.setImageURI(data.getData());
                 break;
             default:
                 break;
         }
     }
 
-    // https://github.com/Yalantis/uCrop/tree/master/ucrop/src/main/java/com/yalantis/ucrop/util
+    /**
+     * 画像の向きを取得する
+     *
+     * @param uri 画像Uri
+     * @return 画像の向き
+     */
     private int getOrientation(@NonNull Uri uri) {
         int orientation = ExifInterface.ORIENTATION_UNDEFINED;
         InputStream in = null;
         try {
             in = getContentResolver().openInputStream(uri);
+            if (in == null) return orientation;
             ExifInterface exifInterface = new ExifInterface(in);
             orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-            Log.d("ExifActivity ", "orientation" + orientation);
-            // Now you can extract any Exif tag you want
-            // Assuming the image is a JPEG or supported raw format
         } catch (IOException e) {
-            // Handle any errors
+            e.getStackTrace();
+            Log.e("ExifActivity", e.getMessage());
         } finally {
             if (in != null) {
                 try {
@@ -206,15 +202,43 @@ public class ExifActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.d("ExifActivity", "orientation" + orientation);
         return orientation;
     }
 
     /**
-     * getBitmapを取得する
+     * 画像を回す角度を取得する
      *
-     * @param context
-     * @param uri
-     * @return
+     * @param exifOrientation 向き
+     * @return 画像を回す角度
+     */
+    public int getRotation(int exifOrientation) {
+        int rotation;
+        switch (exifOrientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                rotation = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                rotation = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                rotation = 270;
+                break;
+            default:
+                rotation = 0;
+        }
+        return rotation;
+    }
+
+    /**
+     * Bitmapを取得する
+     *
+     * @param context コンテキスト
+     * @param uri     画像Uri
+     * @return Bitmap
      */
     private
     @Nullable
@@ -246,8 +270,14 @@ public class ExifActivity extends AppCompatActivity {
             return null;
         }
 
-        Log.d("ExifActivity", "outWidth : " + options.outWidth);
-        Log.d("ExifActivity", "outHeight : " + options.outHeight);
+        int orientation = getOrientation(uri);
+        int rotation = getRotation(orientation);
+
+        Matrix transformMatrix = new Matrix();
+        transformMatrix.setRotate(rotation);
+
+//        Log.d("ExifActivity", "outWidth : " + options.outWidth);
+//        Log.d("ExifActivity", "outHeight : " + options.outHeight);
 
         // 画面サイズと画像サイズを比較
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -258,19 +288,19 @@ public class ExifActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-        Log.d("ExifActivity", "width : " + width);
-        Log.d("ExifActivity", "height : " + height);
+//        Log.d("ExifActivity", "width : " + width);
+//        Log.d("ExifActivity", "height : " + height);
 
         int reqWidth = Math.min(width, options.outWidth);
         int reqHeight = Math.min(height, options.outHeight);
 
-        Log.d("ExifActivity", "reqWidth : " + reqWidth);
-        Log.d("ExifActivity", "reqHeight : " + reqHeight);
+//        Log.d("ExifActivity", "reqWidth : " + reqWidth);
+//        Log.d("ExifActivity", "reqHeight : " + reqHeight);
 
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         options.inJustDecodeBounds = false;
 
-        Log.d("ExifActivity", "inSampleSize : " + options.inSampleSize);
+//        Log.d("ExifActivity", "inSampleSize : " + options.inSampleSize);
 
         Bitmap decodeSampledBitmap = null;
 
@@ -285,17 +315,14 @@ public class ExifActivity extends AppCompatActivity {
             }
         }
 
-        Log.d("ExifActivity", "decodeSampledBitmap : getWidth " + decodeSampledBitmap.getWidth());
-        Log.d("ExifActivity", "decodeSampledBitmap : getHeight "  + decodeSampledBitmap.getHeight());
+//        Log.d("ExifActivity", "decodeSampledBitmap : getWidth " + decodeSampledBitmap.getWidth());
+//        Log.d("ExifActivity", "decodeSampledBitmap : getHeight " + decodeSampledBitmap.getHeight());
 
-        // TODO oritantation
+        // 画像を変形する
+        decodeSampledBitmap = transformBitmap(decodeSampledBitmap, transformMatrix);
 
         return decodeSampledBitmap;
     }
-
-    /// resize https://github.com/Yalantis/uCrop/blob/master/ucrop/src/main/java/com/yalantis/ucrop/task/BitmapCropTask.java
-
-    // max bitmap size https://github.com/Yalantis/uCrop/blob/master/ucrop/src/main/java/com/yalantis/ucrop/util/BitmapLoadUtils.java
 
     public int calculateInSampleSize(@NonNull BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -313,62 +340,16 @@ public class ExifActivity extends AppCompatActivity {
         return inSampleSize;
     }
 
-
-//    private int rotation() {
-//
-//    }
-
-    // bitmapを
-    // https://github.com/Yalantis/uCrop/tree/master/ucrop/src/main/java/com/yalantis/ucrop/model
-    // https://github.com/Yalantis/uCrop/blob/master/ucrop/src/main/java/com/yalantis/ucrop/task/BitmapLoadTask.java
-//    private Bitmap getBitmap(@NonNull Uri uri) {
-//        final BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inJustDecodeBounds = false;
-//        int orientation = ExifInterface.ORIENTATION_UNDEFINED;
-//        InputStream in = null;
-//        try {
-//            in = getContentResolver().openInputStream(uri);
-//            BitmapFactory.decodeFile(in, options);
-//            // BitmapFactory aa = BitmapFactory.decodeStream(in);
-//            ExifInterface exifInterface = new ExifInterface(in);
-//            orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-//            Log.d("ExifActivity ", "orientation" + orientation);
-//            // Now you can extract any Exif tag you want
-//            // Assuming the image is a JPEG or supported raw format
-//        } catch (IOException e) {
-//            // Handle any errors
-//        } finally {
-//            if (in != null) {
-//                try {
-//                    in.close();
-//                } catch (IOException ignored) {
-//                }
-//            }
-//        }
-//
-//        return null;
-//    }
-
-
-    private void getData(@NonNull Uri uri) {
-        InputStream in = null;
+    public Bitmap transformBitmap(@NonNull Bitmap bitmap, @NonNull Matrix transformMatrix) {
         try {
-            in = getContentResolver().openInputStream(uri);
-            ExifInterface exifInterface = new ExifInterface(in);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-            Log.d("ExifActivity ", "orientation" + orientation);
-            // Now you can extract any Exif tag you want
-            // Assuming the image is a JPEG or supported raw format
-        } catch (IOException e) {
-            // Handle any errors
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException ignored) {
-                }
+            Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), transformMatrix, true);
+            if (!bitmap.sameAs(converted)) {
+                bitmap = converted;
             }
+        } catch (OutOfMemoryError error) {
+            Log.e("", "transformBitmap: ", error);
         }
+        return bitmap;
     }
 
 }
