@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="java_lang_programming.com.android_media_demo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- <uses-feature android:name="android.software.leanback" android:required="false"/> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -38,7 +40,15 @@
         <activity
             android:name=".article84.ExifActivity"
             android:label="@string/title_activity_exif"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity
+            android:name=".article87.java.Exoplayer2Activity"
+            android:label="@string/title_activity_exoplayer2"
+            android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity
+            android:name=".article94.java.ImageDecoderActivity"
+            android:label="@string/title_activity_image_decoder"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

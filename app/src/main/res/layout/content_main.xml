@@ -39,4 +39,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_gray_scale_demo"
         android:text="@string/title_activity_exif_demo" />
+
+    <!--<Button
+        android:id="@+id/btn_exo2_demo_java"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_exif_demo"
+        android:text="@string/title_activity_exoplayer2" />-->
+
+    <Button
+        android:id="@+id/btn_image_decoder_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_exif_demo"
+        android:text="@string/title_activity_image_decoder" />
+
 </RelativeLayout>

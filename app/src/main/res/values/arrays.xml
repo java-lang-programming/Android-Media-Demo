@@ -17,6 +17,7 @@
         <item>ColorMatrix</item>
         <item>SimpleMeanMethod</item>
         <item>NTSC Coef. method</item>
+        <item>NTSC Coef. method(Render Script)</item>
         <item>clear</item>
     </string-array>
 </resources>

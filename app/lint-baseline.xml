@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 2.3.0">
+
+
+
+
+
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/sample_20161204_180343.jpeg` in densityless folder">
+        <location
+            file="src/main/res/drawable/sample_20161204_180343.jpeg"/>
+    </issue>
+
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Import&quot;, should use `@string` resource"
+        errorLine1="            android:title=&quot;Import&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="8"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Gallery&quot;, should use `@string` resource"
+        errorLine1="            android:title=&quot;Gallery&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="12"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Slideshow&quot;, should use `@string` resource"
+        errorLine1="            android:title=&quot;Slideshow&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="16"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Tools&quot;, should use `@string` resource"
+        errorLine1="            android:title=&quot;Tools&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Communicate&quot;, should use `@string` resource"
+        errorLine1="    &lt;item android:title=&quot;Communicate&quot;>"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="23"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Share&quot;, should use `@string` resource"
+        errorLine1="                android:title=&quot;Share&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="28"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Send&quot;, should use `@string` resource"
+        errorLine1="                android:title=&quot;Send&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/activity_main_drawer.xml"
+            line="32"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;Android Studio&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Android Studio&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/nav_header_main.xml"
+            line="26"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="[I18N] Hardcoded string &quot;android.studio@android.com&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;android.studio@android.com&quot; />"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/nav_header_main.xml"
+            line="33"
+            column="9"/>
+    </issue>
+
+</issues>

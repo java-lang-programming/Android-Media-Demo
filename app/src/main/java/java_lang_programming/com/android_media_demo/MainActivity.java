@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import java_lang_programming.com.android_media_demo.article80.GrayScaleActivity;
 import java_lang_programming.com.android_media_demo.article84.ExifActivity;
+import java_lang_programming.com.android_media_demo.article94.java.ImageDecoderActivity;
 
 /**
  * Main
@@ -70,6 +71,14 @@ public class MainActivity extends AppCompatActivity
 
         Button btnExifDemo = (Button) findViewById(R.id.btn_exif_demo);
         btnExifDemo.setOnClickListener(v -> moveExifActivity());
+
+        // ImageDecoderActivity
+
+//        Button btnExo2Demo = findViewById(R.id.btn_exo2_demo_java);
+//        btnExo2Demo.setOnClickListener(v -> moveExoplayer2Activity());
+
+        Button btnImageDecoderDemo = findViewById(R.id.btn_image_decoder_demo);
+        btnImageDecoderDemo.setOnClickListener(v -> moveImageDecoderActivity());
     }
 
     @Override
@@ -146,6 +155,21 @@ public class MainActivity extends AppCompatActivity
 
     private void moveExifActivity() {
         Intent intent = new Intent(this, ExifActivity.class);
+        startActivity(intent);
+    }
+
+//    private void moveExoplayer2Activity() {
+//        Intent intent = new Intent(this, Exoplayer2Activity.class);
+//        startActivity(intent);
+//    }
+//
+//    private void moveKtExoplayer2Activity() {
+//        Intent intent = new Intent(this, KtExoplayer2Activity.class);
+//        startActivity(intent);
+//    }
+
+    private void moveImageDecoderActivity() {
+        Intent intent = new Intent(this, ImageDecoderActivity.class);
         startActivity(intent);
     }
 }

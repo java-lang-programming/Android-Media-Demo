@@ -17,6 +17,7 @@
         <item>ColorMatrix</item>
         <item>単純平均法</item>
         <item>NTSC 係数による加重平均法</item>
+        <item>NTSC係数による加重平均法(Render Script)</item>
         <item>クリア</item>
     </string-array>
 </resources>

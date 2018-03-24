@@ -22,5 +22,7 @@
     <string name="title_activity_gray_scale_demo">Image GrayScale Demo</string>
     <string name="title_activity_exif_demo">Exif Demo</string>
     <string name="title_activity_exif">ExifActivity</string>
+    <string name="title_activity_exoplayer2">Exoplayer2Activity</string>
+    <string name="title_activity_image_decoder">ImageDecoderActivity</string>
 
 </resources>

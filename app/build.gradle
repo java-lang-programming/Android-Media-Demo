@@ -1,17 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion "android-P"
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "java_lang_programming.com.android_media_demo"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion "P"
         versionCode 1
         versionName "1.0"
-        jackOptions {
-            enabled true
-        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -27,6 +25,10 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
         baseline file("lint-baseline.xml") // your choice of filename/path here
+    }
+    if (project.hasProperty('devBuild')) {
+        splits.abi.enable = false
+        splits.density.enable = false
     }
 //    aaptOptions {
 //        // PNGのcrunching無効
@@ -46,10 +48,12 @@ dependencies {
     compile "com.android.support:exifinterface:" + rootProject.supportLibVersion
     compile 'com.android.support.constraint:constraint-layout:' + rootProject.constraintLayout
 
-    compile 'io.reactivex.rxjava2:rxandroid:' + rootProject.rxandroidVersion
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex.rxjava2:rxjava:' + rootProject.rxjavaVersion
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
+repositories {
+    mavenCentral()
+}
+apply plugin: 'kotlin-android-extensions'
